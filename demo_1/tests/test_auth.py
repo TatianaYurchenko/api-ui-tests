@@ -1,22 +1,26 @@
-from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 import time
 
+BURGER_MENU = (By.XPATH, "//button[@id='react-burger-menu-btn']")
+LOGOUT = (By.XPATH, "//*[@id='logout_sidebar_link']")
 
-driver = webdriver.Chrome()
-driver.get('https://www.saucedemo.com/')
+def test_login(login, wait, driver):
+    # login — это уже авторизованный driver
 
-USER_NAME = (By.XPATH, "//*[@id='user-name']")
-PASSWORD = (By.XPATH, "//*[@id='password']")
-LOGIN = (By.XPATH, "//*[@id='login-button']")
-
-
-def test_auth_positive():
-    driver.find_element(*USER_NAME).send_keys("standard_user")
-    driver.find_element(*PASSWORD).send_keys("secret_sauce")
-    driver.find_element(*LOGIN).click()
     assert driver.current_url == "https://www.saucedemo.com/inventory.html", 'url не соответствует ожидаемому'
-    time.sleep(1)
-    driver.quit()
 
+    # # Пример использования wait
+    # title = wait.until(lambda d: d.find_element(By.CLASS_NAME, "title"))
+    # assert title.text == "Products"
+
+def test_add_item(login, wait, driver):
+
+    assert driver.current_url == "https://www.saucedemo.com/inventory.html", 'url не соответствует ожидаемому'
+    driver.find_element(*BURGER_MENU).click()
+    logout_button = wait.until(
+        EC.element_to_be_clickable(LOGOUT)
+    )
+    logout_button.click()
+    assert driver.current_url == "https://www.saucedemo.com/"
 
