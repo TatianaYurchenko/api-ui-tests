@@ -10,7 +10,6 @@ ITEM_IN_CARD = (By.XPATH, "//*[@id='item_4_title_link']/div")
 def test_add_item(login, wait, driver):
 
     assert driver.current_url == "https://www.saucedemo.com/inventory.html", 'url не соответствует ожидаемому'
-
     text_before = wait.until(EC.visibility_of_element_located(ITEM)).text
     add_to_card_btn = wait.until(EC.element_to_be_clickable(ADD_TO_CARD_BTN))
     add_to_card_btn.click()

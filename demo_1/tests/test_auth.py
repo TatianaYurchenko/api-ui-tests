@@ -6,16 +6,12 @@ BURGER_MENU = (By.XPATH, "//button[@id='react-burger-menu-btn']")
 LOGOUT = (By.XPATH, "//*[@id='logout_sidebar_link']")
 
 def test_login(login, wait, driver):
-    # login — это уже авторизованный driver
-
     assert driver.current_url == "https://www.saucedemo.com/inventory.html", 'url не соответствует ожидаемому'
 
-    # # Пример использования wait
     # title = wait.until(lambda d: d.find_element(By.CLASS_NAME, "title"))
     # assert title.text == "Products"
 
-def test_add_item(login, wait, driver):
-
+def test_logout(login, wait, driver):
     assert driver.current_url == "https://www.saucedemo.com/inventory.html", 'url не соответствует ожидаемому'
     driver.find_element(*BURGER_MENU).click()
     logout_button = wait.until(
